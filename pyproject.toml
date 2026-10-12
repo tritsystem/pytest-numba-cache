@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pytest-numba-cache"
+version = "0.1.0"
+description = "Give each pytest-xdist worker its own numba cache directory, so parallel test runs don't segfault on numba's cache race"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Gavin Branaa" }]
+requires-python = ">=3.9"
+dependencies = ["pytest>=7"]
+keywords = ["pytest", "numba", "xdist", "cache", "segfault"]
+classifiers = [
+    "Framework :: Pytest",
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Testing",
+]
+
+[project.optional-dependencies]
+test = ["pytest-xdist>=3", "numba"]
+
+[project.urls]
+Homepage = "https://github.com/tritsystem/pytest-numba-cache"
+Issues = "https://github.com/tritsystem/pytest-numba-cache/issues"
+
+[project.entry-points.pytest11]
+numba_cache = "pytest_numba_cache.plugin"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-p pytester"
+norecursedirs = ["race_demo"]
